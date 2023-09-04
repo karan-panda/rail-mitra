@@ -22,7 +22,7 @@ Welcome to Rail Mitra, your one-stop destination for seamless online railway tic
 - **Node.js**: Empowering the server-side logic and facilitating seamless communication between the frontend and the database.
 - **MongoDB**: A robust and flexible NoSQL database, ensuring efficient data storage and retrieval.
 
-## Authors 👨‍💻
+## Authors 🔗
 - Karan Panda
 - Anand Pandey
 
