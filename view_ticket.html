@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #ticketInfo {
+            text-align: center;
+            background-color: #fff;
+            border: 2px solid #3199da;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        #flightDetails {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #ticketImage {
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        #logo {
+            max-width: 80px;
+        }
+
+        #viewTicket {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3199da;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #viewTicket:hover {
+            background-color: #1c87c9;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="ticketInfo">
+        <img id="ticketImage" src="images/ticket.jpg" alt="Ticket Image">
+        <button id="viewTicket" style="display: block; margin: 0 auto;">View Your Ticket</button>
+        <div id="flightDetails"></div>
+    </div>
+
+    <script>
+        document.getElementById("viewTicket").addEventListener("click", function () {
+            const storedFlightInfo = localStorage.getItem("selectedFlight");
+            const storedNumberOfSeats = localStorage.getItem("numberOfSeats");
+            const storedTotalPrice = localStorage.getItem("totalPrice");
+
+            if (storedFlightInfo) {
+                const flightDetails = JSON.parse(storedFlightInfo);
+                const flightDetailsDiv = document.getElementById("flightDetails");
+
+                flightDetailsDiv.innerHTML = `
+                    <h1>Your Train Ticket</h1>
+                    <p>Train Name: ${flightDetails.railName}</p>
+                    <p>Origin: ${flightDetails.origin}</p>
+                    <p>Destination: ${flightDetails.destination}</p>
+                    <p>Departure: ${flightDetails.departure}</p>
+                    <p>Return: ${flightDetails.return}</p>
+                    <p>Total Price: ₹${storedTotalPrice}</p>
+                `;
+
+                ticketInfo.style.display = "block";
+            } else {
+                alert("No flight information found.");
+            }
+        });
+    </script>
+</body>
+
+</html>

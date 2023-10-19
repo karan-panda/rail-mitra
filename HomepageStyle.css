@@ -1,4 +1,4 @@
-body {
+/* body {
     background-image: url("/images/train.jpg");
     background-repeat: no-repeat;
     background-size:cover;
@@ -24,6 +24,78 @@ body {
     padding: 10px;
     font-weight: bolder;
     border: 1px solid black;
-    /* text-decoration: none; */
   }
-  
+*/
+
+body {
+    background-image: url("/images/train.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.HomeContainer {
+    background: rgba(29, 21, 48, 0.75); /* Use rgba for transparency */
+    color: #fff;
+    max-width: 80%;
+    margin: auto;
+    border: 10px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 900; /* Use a stronger font-weight */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    position: relative; /* Added to contain child elements */
+    overflow: hidden; /* Added to prevent child elements from going outside */
+}
+
+
+/* Style for the header with a background color */
+#content {
+    background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.nav-tabs {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+}
+
+.nav-tabs > li > a {
+    color: #fff;
+    font-weight: 900;
+}
+
+/* Style for the form and select elements */
+form {
+    margin-top: 20px;
+}
+
+.drop {
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for select */
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Style for the search result container */
+#flightResult {
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(29, 21, 48, 0.8); /* Adjust background transparency */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow */
+}
+
+#resultContainer {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.lab {
+    font-weight: 900;
+}

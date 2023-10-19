@@ -62,7 +62,7 @@
           <input type="date" name="depart" class="drop" id="depart">
           <span class="lab" style="color: rgba(255, 255, 255, 1); font-weight: 900;">Return:</span>
           <input type="date" name="return" class="drop" id="return">
-          <input type="submit" name="submit" id="flightsButton">
+          <input type="submit" name="submit" id="flightsButton" style="background-color: #007BFF; color: #fff; border: none; padding: 10px 20px; font-weight: 900; cursor: pointer; border-radius: 10px;">
         </form>
       </div>
       <!--Tab Content End-->
@@ -79,57 +79,73 @@
   </div>
 
 </div>
-  <script>
-    // JavaScript code to handle form submission
-    document.getElementById("flightsButton").addEventListener("click", function (event) {
-      event.preventDefault();
-      const form = document.querySelector("form");
 
-      fetch("http://localhost:3000/search", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          origin: form.origin.value,
-          destination: form.destination.value,
-          departure: form.depart.value,
-          returnDate: form.return.value,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle the response data and populate the resultContainer
-          const resultContainer = document.getElementById("resultContainer");
-          resultContainer.innerHTML = ""; // Clear previous results
+<script>
+  document.getElementById("flightsButton").addEventListener("click", function (event) {
+    event.preventDefault();
+    const form = document.querySelector("form");
 
-          if (data.length > 0) {
-            data.forEach((flight) => {
-              const flightInfo = document.createElement("div");
-              flightInfo.innerHTML = `
-                <hr>
-                <p style="color: rgba(255, 255, 255, 1); font-weight: 600;">Rail Name: ${flight.railName}</p>
-                <p style="color: rgba(255, 255, 255, 1); font-weight: 600;">Origin: ${flight.origin}</p>
-                <p style="color: rgba(255, 255, 255, 1); font-weight: 600;">Destination: ${flight.destination}</p>
-                <p style="color: rgba(255, 255, 255, 1); font-weight: 600;">Departure: ${flight.departure}</p>
-                <p style="color: rgba(255, 255, 255, 1); font-weight: 600;">Return: ${flight.return}</p>
-                <hr>
-              `;
-              resultContainer.appendChild(flightInfo);
+    fetch("http://localhost:3000/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        origin: form.origin.value,
+        destination: form.destination.value,
+        departure: form.depart.value,
+        returnDate: form.return.value,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const resultContainer = document.getElementById("resultContainer");
+        resultContainer.innerHTML = ""; 
+
+        if (data.length > 0) {
+          data.forEach((flight, index) => {
+            const flightInfo = document.createElement("div");
+            flightInfo.innerHTML = `
+              <hr>
+              <div class="col-lg-8">
+                <p>Train Name: ${flight.railName}</p>
+                <p>Origin: ${flight.origin}</p>
+                <p>Destination: ${flight.destination}</p>
+                <p>Departure: ${flight.departure}</p>
+                <p>Return: ${flight.return}</p>
+                <button class="btn btn-success book-now-button" data-index="${index}">Book Now</button>
+                <br><br><hr><br><br>
+              </div>
+              <div class="col-lg-4">
+                <img src="images/ticket.jpg" alt="train Image" height="150px" style="border-radius:10%">
+                <br><br>
+              </div>
+            `;
+            resultContainer.appendChild(flightInfo);
+          });
+
+          const bookNowButtons = document.querySelectorAll(".book-now-button");
+          bookNowButtons.forEach((button) => {
+            button.addEventListener("click", function (event) {
+              event.preventDefault();
+              const flightIndex = this.getAttribute("data-index");
+              const selectedFlight = data[flightIndex];
+              localStorage.setItem("selectedFlight", JSON.stringify(selectedFlight));
+              window.location.href = "Payment.html";
             });
-          } else {
-            const noResult = document.createElement("p");
-            noResult.textContent = "No Trains found for the given criteria.";
-            resultContainer.appendChild(noResult);
-            
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          alert("No such Trains available.");
-        });
-    });
-  </script>
+          });
+        } else {
+          const noResult = document.createElement("p");
+          noResult.textContent = "No Trains found for the given criteria.";
+          resultContainer.appendChild(noResult);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("No such flights available.");
+      });
+  });
+</script>
  
 </body>
 </html>
